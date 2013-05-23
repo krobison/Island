@@ -83,6 +83,8 @@ public:
 		void actions_hit(std::string target);
 		void actions_hit_with(std::string target,std::string weapon);
 
+		void actions_turn(std::string target);
+
 		//####TRIGGERS####//
 
 		bool check_triggers_null();

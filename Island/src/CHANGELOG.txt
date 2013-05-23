@@ -1,0 +1,9 @@
+5/23/2013
+
+	ADDED			grab/get as alt. for take
+	ADDED			turn == twist/rotate
+	ADDED			item prop: oiled + getter and setter
+	ADDED			valve - hit stuff
+	FIXED			hitting self can now get past first "anger" room test
+	FIXED			moved itWord out of conditionals for the actions_hit method
+	CHANGED			changeed the 15 turn death flag for first room into 8 turns

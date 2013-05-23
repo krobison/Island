@@ -585,7 +585,7 @@ bool Driver::interpreter_checkVerb(std::string command) {
 		actions_look(remainder);
 		return true;
 	}
-	else if (verb == "take") {
+	else if (verb == "take"||verb == "grab"||verb == "get") {
 		actions_take(remainder);
 		return true;
 	}
@@ -603,6 +603,10 @@ bool Driver::interpreter_checkVerb(std::string command) {
 	}
 	else if (verb == "throw" || verb == "toss"){
 		actions_throw(remainder);
+		return true;
+	}
+	else if (verb == "turn"||verb == "twist"||verb == "rotate"){
+		actions_turn(remainder);
 		return true;
 	}
 	else{
@@ -978,6 +982,7 @@ void Driver::actions_drop(std::string target) {
 void Driver::actions_hit(std::string target) {
 	for (std::size_t i = 0;i<objects.size();i++) {
 		if (objects[i].checkName(target) && (itemIsHere(objects[i]) || itemIsOwned(objects[i]) ) ){
+			itWord = objects[i].getName();
 			if (objects[i].getName() == "wall") {
 				cout << objects[i].msgHit<<endl;
 				if (yesNo()){
@@ -1001,17 +1006,25 @@ void Driver::actions_hit(std::string target) {
 					return;
 				}
 			}
+			else if (objects[i].getName() == "valve"){
+				cout << objects[i].msgHit<<endl;
+				if (yesNo()){
+					cout << "You wind up and punch that valve, showing it definitively who is boss.";
+					hurtPlayer(10);
+					return;
+				}
+			}
 			else{
 				cout << objects[i].msgHit;
-				itWord = objects[i].getName();
 				return;
 			}
 		}
 	}
-	if (target == "yourself" ||target == "self" ||target == "myself"||target == "me"||target == "player"||target == player.getName()){
+	if (target == "yourself" ||target == "self" ||target == "myself"||target == "my self"||target == "me"||target == "player"||target == player.getName()){
 		if (yesNo()){
 			cout << "You punch yourself in the head.";
 			hurtPlayer(10);
+			check_triggers_commands("scream");
 			return;
 		}
 		else{
@@ -1122,6 +1135,27 @@ void Driver::actions_throw_at(std::string target,std::string weapon){
 	}
 	cout << fmsg_throw;
 
+}
+
+void Driver::actions_turn(std::string target){
+	for (std::size_t i = 0;i<objects.size();i++){
+		if (objects[i].checkName(target) && itemIsHere(objects[i])) {
+			if (objects[i].getName() == "valve"){
+				if (objects[i].isOiled()) {
+
+				}
+				else{
+					cout << "You try as hard as you can, but the valve won't budge!";
+					return;
+				}
+			}
+			else{
+				cout << "You cannot turn that!";
+				return;
+			}
+		}
+	}
+	cout << "You cannot see that here.";
 }
 
 void Driver::actions_hit_with(std::string target,std::string weapon) {
@@ -1269,8 +1303,8 @@ void Driver::actions_quit() {
 
 
 bool Driver::check_triggers_null() {
-	//TRIGGER 1a: Check if player stays in first room too long (15 turns). If so, deal punishment
-	if (player.getCurrentRoom().getX() == 50 && player.getCurrentRoom().getY() == 50 && player.getTurns() == 15){
+	//TRIGGER 1a: Check if player stays in first room too long (8 turns). If so, deal punishment
+	if (player.getCurrentRoom().getX() == 50 && player.getCurrentRoom().getY() == 50 && player.getTurns() == 8){
 		for (std::size_t i = 0;i < exits.size();i++){
 			if (exits[i].getX() == 50 && exits[i].getY() == 50 && exits[i].getDirection() == "north" && exits[i].isOpen() == false){
 				death("\tSuddenly a voice sounds through a loudspeaker:\n\n'It has come to our attention that you may not, in fact, be the right man for   the job. You take too long! Appropriate measures will be taken.'\n\nA yellowish gas begins to spray in through the corners   of the room. You cover your mouth, but it is too late. You fall to the ground and feel the darkness    setting in.\n\n");
