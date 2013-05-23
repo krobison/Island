@@ -254,6 +254,28 @@ Exit Driver::getExit(int x,int y,std::string dir) {
 	return exits[0];
 }
 
+bool Driver::checkLiving(){
+	for (size_t i = 0; i <objects.size(); i++){
+		if (itemIsHere(objects[i]) ) {
+			if (objects[i].isAlive()){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+int Driver::getAnyCharacterIndex() {
+	for (size_t i = 0; i <objects.size(); i++){
+		if (itemIsHere(objects[i]) ) {
+			if (objects[i].isAlive()){
+				return i;
+			}
+		}
+	}
+	return 0;
+}
+
 bool Driver::itemIsHere(Item i) {
 	if (i.getX() == player.getCurrentRoom().getX() && i.getY() == player.getCurrentRoom().getY()) {
 		return true;
@@ -609,6 +631,10 @@ bool Driver::interpreter_checkVerb(std::string command) {
 		actions_turn(remainder);
 		return true;
 	}
+	else if (verb == "say"){
+		actions_say(remainder);
+		return true;
+	}
 	else{
 		return false;
 	}
@@ -732,6 +758,10 @@ bool Driver::interpreter_checkPreposition(std::string command) {
 	}
 	else if ( (verb == "set"||verb == "put"||verb == "lay"||verb == "drop")&&(preposition == "down")){
 		actions_drop(between);
+		return true;
+	}
+	else if ( (verb == "say")&&(preposition == "at")){
+		actions_say_to(between,after);
 		return true;
 	}
 	else{
@@ -1153,6 +1183,43 @@ void Driver::actions_turn(std::string target){
 				cout << "You cannot turn that!";
 				return;
 			}
+		}
+	}
+	cout << "You cannot see that here.";
+}
+
+void Driver::actions_say(std::string text){
+	if (checkLiving()) {
+		int i = getAnyCharacterIndex();
+		std::string temp = objects[i].getName();
+		actions_say_to(text,temp);
+		return;
+	}
+	else{
+		cout << char(34) << text << char(34) <<", you say. Nobody hears you.";
+		return;
+	}
+}
+
+void Driver::actions_say_to(std::string text,std::string target){
+	for (std::size_t i = 0; i < objects.size(); i++){
+		if (objects[i].checkName(target) && itemIsHere(objects[i])){
+
+			if(objects[i].isAlive()){
+
+				if (objects[i].getName() == "lizard"){
+					cout << char(34) << text << char(34) <<", you say.\n";
+					cout << char(34) << char(34) << ", says the lizard. He doesn't seem to be interested.";
+					return;
+				}
+	
+			}
+			else {
+				cout << char(34) << text << char(34) <<", you say.\n";
+				cout << char(34) << char(34) << ", says the "<<objects[i].getName()<<". The "<<objects[i].getName()<<" doesn't seem to be interested.";
+				return;
+			}
+
 		}
 	}
 	cout << "You cannot see that here.";

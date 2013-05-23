@@ -7,3 +7,7 @@
 	FIXED			hitting self can now get past first "anger" room test
 	FIXED			moved itWord out of conditionals for the actions_hit method
 	CHANGED			changeed the 15 turn death flag for first room into 8 turns
+
+	ADDED			item prop: living + getter and setter
+	ADDED			methods: checkLiving and getAnyCharacterIndex
+	ADDED			speech! by using verb: say (at)

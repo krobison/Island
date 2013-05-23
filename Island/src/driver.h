@@ -22,6 +22,10 @@ public:
 	bool itemIsHere(Item i);
 	bool itemIsOwned(Item i);
 
+	bool checkLiving();
+	int getAnyCharacterIndex();
+
+
 	void addToInventory(Item i);
 	void removeFromInventory(Item i);
 
@@ -84,6 +88,9 @@ public:
 		void actions_hit_with(std::string target,std::string weapon);
 
 		void actions_turn(std::string target);
+
+		void actions_say(std::string text);
+		void actions_say_to(std::string text,std::string target);
 
 		//####TRIGGERS####//
 

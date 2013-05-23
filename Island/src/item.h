@@ -7,7 +7,7 @@ class Item {
 public:
 	//CONSTRUCTORS
 	Item() {}
-	Item(std::string iname,std::string itemArticle, int posX,int posY,bool takeable,bool playerHas) : name(iname),article(itemArticle),x(posX),y(posY),canOwn(takeable),owned(playerHas),inList(true),oiled(false) {}
+	Item(std::string iname,std::string itemArticle, int posX,int posY,bool takeable,bool playerHas) : name(iname),article(itemArticle),x(posX),y(posY),canOwn(takeable),owned(playerHas),inList(true),oiled(false),living(false) {}
 	//GETTERS
 	int  getX()					{return x;}
 	int  getY()					{return y;}
@@ -18,6 +18,7 @@ public:
 	std::string getArticle()	{return article;}
 
 	bool isOiled() {return oiled;}
+	bool isAlive() {return living;}
 
 	//SETTERS
 	void setX(int pos)			{x = pos;}
@@ -29,6 +30,7 @@ public:
 	void drop(int posx,int posy);
 
 	void setOiled(bool b)		{oiled = b;}
+	void setAlive(bool b)		{living = b;}
 
 	//OTHER
 	bool checkName(std::string);
@@ -52,4 +54,5 @@ private:
 
 	//BEGIN RANDOM PROPERTY STUFFS
 	bool oiled;
+	bool living;
 };
