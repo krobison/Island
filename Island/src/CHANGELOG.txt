@@ -11,3 +11,6 @@
 	ADDED			item prop: living + getter and setter
 	ADDED			methods: checkLiving and getAnyCharacterIndex
 	ADDED			speech! by using verb: say (at)
+
+	CHANGED			changed some shit around so that "to" is stripped out ONLY after the prepositional check
+	CHANGED			say (at) --> say(to)   YAY!

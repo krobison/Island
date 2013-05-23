@@ -38,6 +38,7 @@ public:
 	std::string getIntro();
 
 	std::string stripStupid(std::string string);
+	std::string stripStupidAfterPreposition(std::string string);
 	std::string replaceIt(std::string string);
 
 

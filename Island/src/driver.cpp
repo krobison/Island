@@ -416,7 +416,6 @@ if (!check_triggers_null() && !check_triggers_commands(command)){
 
 std::string Driver::stripStupid(std::string string) {
 	vector<std::string> badList;
-	badList.push_back(" to ");
 	badList.push_back(" and ");
 	badList.push_back(" the ");
 	badList.push_back(" my ");
@@ -449,6 +448,38 @@ std::string Driver::stripStupid(std::string string) {
 
 	return string;
 }
+
+std::string Driver::stripStupidAfterPreposition(std::string string) {
+	vector<std::string> badList;
+	badList.push_back(" to ");
+
+	int testValue;
+
+	for (std::size_t i = 0;i< badList.size();) {
+		testValue = string.find(badList[i]);
+		if (testValue != -1) {
+			string.erase(testValue,badList[i].length()-1);
+		}
+		else { i++; }
+	}
+
+	vector<std::string> punctuation;
+	punctuation.push_back(".");
+	punctuation.push_back("!");
+	punctuation.push_back(",");
+	punctuation.push_back("?");
+
+	for (std::size_t i = 0;i< punctuation.size();) {
+		testValue = string.find(punctuation[i]);
+		if (testValue != -1) {
+			string.erase(testValue,1);
+		}
+		else { i++; }
+	}
+
+	return string;
+}
+
 std::string Driver::replaceIt(std::string string){
 	
 	int pos = string.find(" it ");
@@ -490,13 +521,14 @@ bool Driver::interpreter_checkShort(std::string command) {
 		return false;
 }
 bool Driver::interpreter_checkLong(std::string command) {
+	std::string commandII = stripStupidAfterPreposition(command);
 	if (		interpreter_checkPreposition(command)		) {
 		return true;
 	}
-	else if (		interpreter_checkTwoVerb(command)		) {
+	else if (		interpreter_checkTwoVerb(commandII)		) {
 		return true;
 	}
-	else if (		interpreter_checkVerb(command)		) {
+	else if (		interpreter_checkVerb(commandII)		) {
 		return true;
 	}
 	else {
@@ -693,6 +725,7 @@ bool Driver::interpreter_checkPreposition(std::string command) {
 	prepositions.push_back("up");
 	prepositions.push_back("down");
 	prepositions.push_back("at");
+	prepositions.push_back("to");
 
 	int pos = command.find_first_of(' ');
 	std::string verb = command.substr(0,pos);
@@ -760,7 +793,7 @@ bool Driver::interpreter_checkPreposition(std::string command) {
 		actions_drop(between);
 		return true;
 	}
-	else if ( (verb == "say")&&(preposition == "at")){
+	else if ( (verb == "say")&&(preposition == "to")){
 		actions_say_to(between,after);
 		return true;
 	}
@@ -1169,7 +1202,7 @@ void Driver::actions_throw_at(std::string target,std::string weapon){
 
 void Driver::actions_turn(std::string target){
 	for (std::size_t i = 0;i<objects.size();i++){
-		if (objects[i].checkName(target) && itemIsHere(objects[i])) {
+		if (objects[i].checkName(target) && (itemIsHere(objects[i])||itemIsOwned(objects[i]))) {
 			if (objects[i].getName() == "valve"){
 				if (objects[i].isOiled()) {
 
@@ -1203,7 +1236,7 @@ void Driver::actions_say(std::string text){
 
 void Driver::actions_say_to(std::string text,std::string target){
 	for (std::size_t i = 0; i < objects.size(); i++){
-		if (objects[i].checkName(target) && itemIsHere(objects[i])){
+		if (objects[i].checkName(target) && (itemIsHere(objects[i])||itemIsOwned(objects[i]))){
 
 			if(objects[i].isAlive()){
 
