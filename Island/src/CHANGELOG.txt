@@ -14,3 +14,11 @@
 
 	CHANGED			changed some shit around so that "to" is stripped out ONLY after the prepositional check
 	CHANGED			say (at) --> say(to)   YAY!
+
+
+	5/25/13
+
+	ADDED			head
+	CHANGED			an item must be 'takeable' to drop it
+	CHANGED			fixed some odd return statements
+	ADDED			arms

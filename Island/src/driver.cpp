@@ -35,7 +35,7 @@ void Driver::initExits() {
 }
 void Driver::initItems() {
 	//###### 50 , 50 ######
-		Item i_rock("rock","A",50,50,true,false);
+		Item i_rock("rock","a",50,50,true,false);
 			i_rock.msgLookAt						= "It is an ordinary gray rock.";
 			i_rock.msgTake							= "You pick the rock up.";
 			i_rock.msgDrop							= "You drop the rock.";
@@ -44,7 +44,7 @@ void Driver::initItems() {
 			i_rock.alternatives.push_back("grey rock");
 			i_rock.alternatives.push_back("gray rock");
 			objects.push_back(i_rock);
-		Item i_lightbulb("lightbulb","A",50,50,false,false);
+		Item i_lightbulb("lightbulb","a",50,50,false,false);
 			i_lightbulb.hide();
 			i_lightbulb.msgLookAt						= "It is so dim it doesn't hurt the eye to look at.";
 			i_lightbulb.msgTake							= "You reach for it, but the bulb burns your fingers.";
@@ -55,7 +55,7 @@ void Driver::initItems() {
 			i_lightbulb.alternatives.push_back("light");
 			i_lightbulb.alternatives.push_back("bulb");
 			objects.push_back(i_lightbulb);
-		Item i_wall5050("wall","A",50,50,false,false);
+		Item i_wall5050("wall","a",50,50,false,false);
 			i_wall5050.hide();
 			i_wall5050.msgLookAt						= "It is a faded white color";
 			i_wall5050.msgTake							= "You do not yet posses the ability to carry walls.";
@@ -84,6 +84,57 @@ void Driver::initItems() {
 			i_valve.alternatives.push_back("red wheel");
 			i_valve.alternatives.push_back("red valve");
 			objects.push_back(i_valve);
+		Item i_body_head("head","your",50,50,false,true);
+			i_body_head.hide();
+			i_body_head.msgLookAt							= "";
+			i_body_head.msgTake								= "It is already securely fastened good sir!";
+			i_body_head.msgDrop								= "This is too difficult of a task for your skill level.";
+			i_body_head.msgLookAtOwned						= "Looking at your own head proves to be quite a challenge. You assume it looks    like an average head.";
+			i_body_head.msgHit								= "You don't want to hit your own head!";
+			i_body_head.alternatives.push_back("brain");
+			i_body_head.alternatives.push_back("my head");
+			i_body_head.alternatives.push_back("your head");
+			i_body_head.take();
+			addToInventory(i_body_head);
+			objects.push_back(i_body_head);
+		Item i_body_armR("arm","your",50,50,false,true);
+			i_body_armR.hide();
+			i_body_armR.msgLookAt							= "";
+			i_body_armR.msgTake								= "Hmmm...no.";
+			i_body_armR.msgDrop								= "Although whilst sleeping arms can be an annoyance, they are generally more use    on oneself.";
+			i_body_armR.msgLookAtOwned						= "Your arm is hairy.";
+			i_body_armR.msgHit								= "You don't want to hurt yourself!";
+			i_body_armR.alternatives.push_back("arms");
+			i_body_armR.alternatives.push_back("wrist");
+			i_body_armR.alternatives.push_back("my arm");
+			i_body_armR.alternatives.push_back("your arm");
+			i_body_armR.alternatives.push_back("my right arm");
+			i_body_armR.alternatives.push_back("your right arm");
+			i_body_armR.alternatives.push_back("right arm");
+			i_body_armR.alternatives.push_back("my arms");
+			i_body_armR.alternatives.push_back("your arms");
+			i_body_armR.take();
+			addToInventory(i_body_armR);
+			objects.push_back(i_body_armR);
+		Item i_body_armL("arm","your",50,50,false,true);
+			i_body_armL.hide();
+			i_body_armL.msgLookAt							= "";
+			i_body_armL.msgTake								= "Hmmm...no.";
+			i_body_armL.msgDrop								= "Although whilst sleeping arms can be an annoyance, they are generally more use    on oneself.";
+			i_body_armL.msgLookAtOwned						= "Your arm is hairy.";
+			i_body_armL.msgHit								= "You don't want to hurt yourself!";
+			i_body_armL.alternatives.push_back("arms");
+			i_body_armL.alternatives.push_back("wrist");
+			i_body_armL.alternatives.push_back("my arm");
+			i_body_armL.alternatives.push_back("your arm");
+			i_body_armL.alternatives.push_back("my left arm");
+			i_body_armL.alternatives.push_back("your left arm");
+			i_body_armL.alternatives.push_back("left arm");
+			i_body_armL.alternatives.push_back("my arms");
+			i_body_armL.alternatives.push_back("your arms");
+			i_body_armL.take();
+			addToInventory(i_body_armL);
+			objects.push_back(i_body_armL);
 }
 
 void Driver::start() {
@@ -1025,8 +1076,10 @@ void Driver::actions_drop(std::string target) {
 	for (std::size_t i = 0;i<objects.size();i++) {
 		if (objects[i].checkName(target)) {
 			if (objects[i].isOwned()){
-				removeFromInventory(objects[i]);
-				objects[i].drop(player.getCurrentRoom().getX(),player.getCurrentRoom().getY());
+				if (objects[i].canTake()){
+					removeFromInventory(objects[i]);
+					objects[i].drop(player.getCurrentRoom().getX(),player.getCurrentRoom().getY());
+				}
 				cout << objects[i].msgDrop;
 
 				itWord = objects[i].getName();
@@ -1068,6 +1121,7 @@ void Driver::actions_hit(std::string target) {
 					check_triggers_commands("scream");
 					return;
 				}
+				return;
 			}
 			else if (objects[i].getName() == "valve"){
 				cout << objects[i].msgHit<<endl;
@@ -1076,6 +1130,25 @@ void Driver::actions_hit(std::string target) {
 					hurtPlayer(10);
 					return;
 				}
+				return;
+			}
+			else if (objects[i].getName() == "head"){
+				if (yesNo()){
+					cout << "You punch yourself in the head.";
+					hurtPlayer(10);
+					check_triggers_commands("scream");
+					return;
+				}
+				return;
+			}
+			else if (objects[i].getName() == "arm"){
+				if (yesNo()){
+					cout << "You punch yourself right in the funny bone.";
+					hurtPlayer(10);
+					check_triggers_commands("scream");
+					return;
+				}
+				return;
 			}
 			else{
 				cout << objects[i].msgHit;
@@ -1371,7 +1444,9 @@ void Driver::actions_inventory(){
 	addLeftText(temp,dmsg_inventory,"light");
 	addBlankBorder(temp,"light");
 	for (std::size_t i = 0;i<inventory.size();i++){
-		addLeftText(temp,inventory[i].getArticle()+" "+inventory[i].getName(),"light");
+		if (inventory[i].isShown()){
+			addLeftText(temp,inventory[i].getArticle()+" "+inventory[i].getName(),"light");
+		}
 	}
 	addBlankBorder(temp,"light");
 	addShade(temp,"light",WIDTH);
