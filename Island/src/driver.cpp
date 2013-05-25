@@ -105,7 +105,6 @@ void Driver::initItems() {
 			i_body_armR.msgLookAtOwned						= "Your arm is hairy.";
 			i_body_armR.msgHit								= "You don't want to hurt yourself!";
 			i_body_armR.alternatives.push_back("arms");
-			i_body_armR.alternatives.push_back("wrist");
 			i_body_armR.alternatives.push_back("my arm");
 			i_body_armR.alternatives.push_back("your arm");
 			i_body_armR.alternatives.push_back("my right arm");
@@ -124,7 +123,6 @@ void Driver::initItems() {
 			i_body_armL.msgLookAtOwned						= "Your arm is hairy.";
 			i_body_armL.msgHit								= "You don't want to hurt yourself!";
 			i_body_armL.alternatives.push_back("arms");
-			i_body_armL.alternatives.push_back("wrist");
 			i_body_armL.alternatives.push_back("my arm");
 			i_body_armL.alternatives.push_back("your arm");
 			i_body_armL.alternatives.push_back("my left arm");
@@ -135,6 +133,44 @@ void Driver::initItems() {
 			i_body_armL.take();
 			addToInventory(i_body_armL);
 			objects.push_back(i_body_armL);
+		Item i_body_handR("hand","your",50,50,false,true);
+			i_body_handR.hide();
+			i_body_handR.msgLookAt							= "";
+			i_body_handR.msgTake							= "Hmmm...no.";
+			i_body_handR.msgDrop							= "I'm afraid I cannot let you do that.";
+			i_body_handR.msgLookAtOwned						= "You have pretty regular looking hands.";
+			i_body_handR.msgHit								= "You don't want to hurt yourself!";
+			i_body_handR.alternatives.push_back("hands");
+			i_body_handR.alternatives.push_back("wrist");
+			i_body_handR.alternatives.push_back("my hand");
+			i_body_handR.alternatives.push_back("your hand");
+			i_body_handR.alternatives.push_back("my right hand");
+			i_body_handR.alternatives.push_back("your right hand");
+			i_body_handR.alternatives.push_back("right hand");
+			i_body_handR.alternatives.push_back("my hands");
+			i_body_handR.alternatives.push_back("your hands");
+			i_body_handR.take();
+			addToInventory(i_body_handR);
+			objects.push_back(i_body_handR);
+		Item i_body_handL("hand","your",50,50,false,true);
+			i_body_handL.hide();
+			i_body_handL.msgLookAt							= "";
+			i_body_handL.msgTake							= "Hmmm...no.";
+			i_body_handL.msgDrop							= "I'm afraid I cannot let you do that.";
+			i_body_handL.msgLookAtOwned						= "You have pretty regular looking hands.";
+			i_body_handL.msgHit								= "You don't want to hurt yourself!";
+			i_body_handL.alternatives.push_back("hands");
+			i_body_handL.alternatives.push_back("wrist");
+			i_body_handL.alternatives.push_back("my hand");
+			i_body_handL.alternatives.push_back("your hand");
+			i_body_handL.alternatives.push_back("my left hand");
+			i_body_handL.alternatives.push_back("your left hand");
+			i_body_handL.alternatives.push_back("left hand");
+			i_body_handL.alternatives.push_back("my hands");
+			i_body_handL.alternatives.push_back("your hands");
+			i_body_handL.take();
+			addToInventory(i_body_handL);
+			objects.push_back(i_body_handL);
 }
 
 void Driver::start() {
@@ -1133,6 +1169,7 @@ void Driver::actions_hit(std::string target) {
 				return;
 			}
 			else if (objects[i].getName() == "head"){
+				cout << objects[i].msgHit<<endl;
 				if (yesNo()){
 					cout << "You punch yourself in the head.";
 					hurtPlayer(10);
