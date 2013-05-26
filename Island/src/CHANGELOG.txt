@@ -25,3 +25,8 @@
 	ADDED			hands
 	ADDED			you can now type "hit (noun) with (arms/hands)" and it functions like "hit (noun)"
 	ADDED			several "hitting" interactions with body parts and different objects
+	ADDED			thowing interactions with body parts
+	CHANGED			reorganized object definitions
+	ADDED			floor and wall for 5049
+	ADDED			a pipe obj for 5049
+	ADDED			interactions for pipe

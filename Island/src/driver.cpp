@@ -34,58 +34,9 @@ void Driver::initExits() {
 		exits.push_back(e2);
 }
 void Driver::initItems() {
-	//###### 50 , 50 ######
-		Item i_rock("rock","a",50,50,true,false);
-			i_rock.msgLookAt						= "It is an ordinary gray rock.";
-			i_rock.msgTake							= "You pick the rock up.";
-			i_rock.msgDrop							= "You drop the rock.";
-			i_rock.msgLookAtOwned					= "You have a baseball size gray rock in your hand.";
-			i_rock.msgHit							= "You dont want to hurt your hand.";
-			i_rock.alternatives.push_back("grey rock");
-			i_rock.alternatives.push_back("gray rock");
-			objects.push_back(i_rock);
-		Item i_lightbulb("lightbulb","a",50,50,false,false);
-			i_lightbulb.hide();
-			i_lightbulb.msgLookAt						= "It is so dim it doesn't hurt the eye to look at.";
-			i_lightbulb.msgTake							= "You reach for it, but the bulb burns your fingers.";
-			i_lightbulb.msgDrop							= "";
-			i_lightbulb.msgLookAtOwned					= "";
-			i_lightbulb.msgHit							= "You don't want to injure your hand.";
-			i_lightbulb.alternatives.push_back("light bulb");
-			i_lightbulb.alternatives.push_back("light");
-			i_lightbulb.alternatives.push_back("bulb");
-			objects.push_back(i_lightbulb);
-		Item i_wall5050("wall","a",50,50,false,false);
-			i_wall5050.hide();
-			i_wall5050.msgLookAt						= "It is a faded white color";
-			i_wall5050.msgTake							= "You do not yet posses the ability to carry walls.";
-			i_wall5050.msgDrop							= "";
-			i_wall5050.msgLookAtOwned					= "";
-			i_wall5050.msgHit							= "You don't want to injure your hand.";
-			i_wall5050.alternatives.push_back("side");
-			objects.push_back(i_wall5050);
-		Item i_floor5050("floor","the",50,50,false,false);
-			i_floor5050.hide();
-			i_floor5050.msgLookAt						= "It is concrete and dirty";
-			i_floor5050.msgTake							= "That is just silly.";
-			i_floor5050.msgDrop							= "";
-			i_floor5050.msgLookAtOwned					= "";
-			i_floor5050.msgHit							= "You don't want to injure your hand.";
-			i_floor5050.alternatives.push_back("ground");
-			i_floor5050.alternatives.push_back("concrete");
-			i_floor5050.alternatives.push_back("concrete floor");
-			i_floor5050.alternatives.push_back("concrete ground");
-			objects.push_back(i_floor5050);
-		Item i_valve("valve","a",50,49,false,false);
-			i_valve.msgLookAt							= "There is a bright red valve sticking out of a pipe.";
-			i_valve.msgTake								= "It is firmly fastened to the pipe.";
-			i_valve.msgDrop								= "";
-			i_valve.msgLookAtOwned						= "";
-			i_valve.msgHit								= "You may want to try turning it instead.";
-			i_valve.alternatives.push_back("wheel");
-			i_valve.alternatives.push_back("red wheel");
-			i_valve.alternatives.push_back("red valve");
-			objects.push_back(i_valve);
+
+	//#### Body parts
+
 		Item i_body_head("head","your",50,50,false,true);
 			i_body_head.hide();
 			i_body_head.msgLookAt							= "";
@@ -175,6 +126,96 @@ void Driver::initItems() {
 			i_body_handL.take();
 			addToInventory(i_body_handL);
 			objects.push_back(i_body_handL);
+
+
+	//###### 50 , 50 ######
+		Item i_rock("rock","a",50,50,true,false);
+			i_rock.msgLookAt						= "It is an ordinary gray rock.";
+			i_rock.msgTake							= "You pick the rock up.";
+			i_rock.msgDrop							= "You drop the rock.";
+			i_rock.msgLookAtOwned					= "You have a baseball size gray rock in your hand.";
+			i_rock.msgHit							= "You dont want to hurt your hand.";
+			i_rock.alternatives.push_back("grey rock");
+			i_rock.alternatives.push_back("gray rock");
+			objects.push_back(i_rock);
+		Item i_lightbulb("lightbulb","a",50,50,false,false);
+			i_lightbulb.hide();
+			i_lightbulb.msgLookAt						= "It is so dim it doesn't hurt the eye to look at.";
+			i_lightbulb.msgTake							= "You reach for it, but the bulb burns your fingers.";
+			i_lightbulb.msgDrop							= "";
+			i_lightbulb.msgLookAtOwned					= "";
+			i_lightbulb.msgHit							= "You don't want to injure your hand.";
+			i_lightbulb.alternatives.push_back("light bulb");
+			i_lightbulb.alternatives.push_back("light");
+			i_lightbulb.alternatives.push_back("bulb");
+			objects.push_back(i_lightbulb);
+		Item i_wall5050("wall","a",50,50,false,false);
+			i_wall5050.hide();
+			i_wall5050.msgLookAt						= "It is a faded white color";
+			i_wall5050.msgTake							= "You do not yet posses the ability to carry walls.";
+			i_wall5050.msgDrop							= "";
+			i_wall5050.msgLookAtOwned					= "";
+			i_wall5050.msgHit							= "You don't want to injure your hand.";
+			i_wall5050.alternatives.push_back("side");
+			objects.push_back(i_wall5050);
+		Item i_floor5050("floor","the",50,50,false,false);
+			i_floor5050.hide();
+			i_floor5050.msgLookAt						= "It is concrete and dirty";
+			i_floor5050.msgTake							= "That is just silly.";
+			i_floor5050.msgDrop							= "";
+			i_floor5050.msgLookAtOwned					= "";
+			i_floor5050.msgHit							= "You don't want to injure your hand.";
+			i_floor5050.alternatives.push_back("ground");
+			i_floor5050.alternatives.push_back("concrete");
+			i_floor5050.alternatives.push_back("concrete floor");
+			i_floor5050.alternatives.push_back("concrete ground");
+			objects.push_back(i_floor5050);
+
+	//###### 50 , 49 ######
+
+		Item i_floor5049("floor","the",50,49,false,false);
+			i_floor5049.hide();
+			i_floor5049.msgLookAt						= "It is concrete and dirty";
+			i_floor5049.msgTake							= "That is just silly.";
+			i_floor5049.msgDrop							= "";
+			i_floor5049.msgLookAtOwned					= "";
+			i_floor5049.msgHit							= "You don't want to injure your hand.";
+			i_floor5049.alternatives.push_back("ground");
+			i_floor5049.alternatives.push_back("concrete");
+			i_floor5049.alternatives.push_back("concrete floor");
+			i_floor5049.alternatives.push_back("concrete ground");
+			objects.push_back(i_floor5049);
+		Item i_wall5049("wall","a",50,49,false,false);
+			i_wall5049.hide();
+			i_wall5049.msgLookAt						= "It is a faded white color";
+			i_wall5049.msgTake							= "You do not yet posses the ability to carry walls.";
+			i_wall5049.msgDrop							= "";
+			i_wall5049.msgLookAtOwned					= "";
+			i_wall5049.msgHit							= "You don't want to injure your hand.";
+			i_wall5049.alternatives.push_back("side");
+			objects.push_back(i_wall5049);
+		Item i_valve("valve","a",50,49,false,false);
+			i_valve.msgLookAt							= "There is a bright red valve sticking out of a pipe.";
+			i_valve.msgTake								= "It is firmly fastened to the pipe.";
+			i_valve.msgDrop								= "";
+			i_valve.msgLookAtOwned						= "";
+			i_valve.msgHit								= "You may want to try turning it instead.";
+			i_valve.alternatives.push_back("wheel");
+			i_valve.alternatives.push_back("red wheel");
+			i_valve.alternatives.push_back("red valve");
+			objects.push_back(i_valve);
+		Item i_pipe("pipe","a",50,49,false,false);
+			i_pipe.hide();
+			i_pipe.msgLookAt							= "The large plastic pipes run the length of the hall.";
+			i_pipe.msgTake								= "The pipes cannot be taken.";
+			i_pipe.msgDrop								= "";
+			i_pipe.msgLookAtOwned						= "";
+			i_pipe.msgHit								= "You hit the pipe, but it does nothing.";
+			i_pipe.alternatives.push_back("pipes");
+			i_pipe.alternatives.push_back("plastic pipe");
+			i_pipe.alternatives.push_back("plastic pipes");
+			objects.push_back(i_pipe);
+		
 }
 
 void Driver::start() {
@@ -1166,7 +1207,7 @@ void Driver::actions_hit(std::string target) {
 			else if (objects[i].getName() == "valve"){
 				cout << objects[i].msgHit<<endl;
 				if (yesNo()){
-					cout << "You wind up and punch that valve, showing it definitively who is boss.";
+					cout << "You wind up and punch that valve, showing it definitively who is boss (The valve does not budge).";
 					hurtPlayer(10);
 					return;
 				}
@@ -1289,6 +1330,65 @@ void Driver::actions_throw_at(std::string target,std::string weapon){
 				}
 				else {
 					cout << "You cannot hit the floor with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "pipe"){
+				if (objects[wIndex].getName() == "rock"){
+					cout << "The rock bounces off of the pipe and lands on the floor.";
+					removeFromInventory(objects[wIndex]);
+					objects[wIndex].drop(player.getCurrentRoom().getX(),player.getCurrentRoom().getY());
+					itWord = objects[wIndex].getName();
+					return;
+				}
+				else {
+					cout << "You cannot hit the pipe with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "head"){
+				if (objects[wIndex].getName() == "rock"){
+					if (yesNo()){
+						cout << "You hurl the rock at your head, and feel it strike you sharply in the nose before it falls to the ground.";
+						hurtPlayer(25);
+						removeFromInventory(objects[wIndex]);
+						objects[wIndex].drop(player.getCurrentRoom().getX(),player.getCurrentRoom().getY());
+						check_triggers_commands("scream");
+						itWord = objects[wIndex].getName();
+						return;
+					}
+					return;
+				}
+				else {
+					cout << "You cannot hit your head with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "arm"){
+				if (objects[wIndex].getName() == "rock"){
+					if (yesNo()){
+						cout << "You throw the rock at your own arm. It hits you and falls to the floor.";
+						hurtPlayer(15);
+						removeFromInventory(objects[wIndex]);
+						objects[wIndex].drop(player.getCurrentRoom().getX(),player.getCurrentRoom().getY());
+						check_triggers_commands("scream");
+						itWord = objects[wIndex].getName();
+						return;
+					}
+					return;
+				}
+				else {
+					cout << "You cannot hit your arm with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "hand"){
+				if (objects[wIndex].getName() == "rock"){
+					cout << "You toss the rock back and forth between your hands.";
+					return;
+				}
+				else {
+					cout << "You cannot hit your hand with that!";
 					return;
 				}
 			}
