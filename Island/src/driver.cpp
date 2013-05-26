@@ -73,6 +73,8 @@ void Driver::initItems() {
 			i_floor5050.msgHit							= "You don't want to injure your hand.";
 			i_floor5050.alternatives.push_back("ground");
 			i_floor5050.alternatives.push_back("concrete");
+			i_floor5050.alternatives.push_back("concrete floor");
+			i_floor5050.alternatives.push_back("concrete ground");
 			objects.push_back(i_floor5050);
 		Item i_valve("valve","a",50,49,false,false);
 			i_valve.msgLookAt							= "There is a bright red valve sticking out of a pipe.";
@@ -149,6 +151,7 @@ void Driver::initItems() {
 			i_body_handR.alternatives.push_back("right hand");
 			i_body_handR.alternatives.push_back("my hands");
 			i_body_handR.alternatives.push_back("your hands");
+			i_body_handR.alternatives.push_back("fist");
 			i_body_handR.take();
 			addToInventory(i_body_handR);
 			objects.push_back(i_body_handR);
@@ -168,6 +171,7 @@ void Driver::initItems() {
 			i_body_handL.alternatives.push_back("left hand");
 			i_body_handL.alternatives.push_back("my hands");
 			i_body_handL.alternatives.push_back("your hands");
+			i_body_handL.alternatives.push_back("fist");
 			i_body_handL.take();
 			addToInventory(i_body_handL);
 			objects.push_back(i_body_handL);
@@ -1390,6 +1394,18 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 			}
 		}
 	}
+
+	//check for body parts as weapons (hit blank with fist)
+	for (std::size_t i = 0; i< objects.size();i++){
+		if (objects[i].checkName(weapon)){
+			if (objects[i].getName() == "hand"  ||
+				objects[i].getName() == "arm"	){
+				actions_hit(target);
+				return;
+			}	
+		}
+	}
+
 	for (std::size_t i = 0;i<objects.size();i++) {
 		if (objects[i].checkName(target) && (itemIsHere(objects[i]) || itemIsOwned(objects[i]) ) ){
 			//if (target == "specific item") {call specific method}
@@ -1398,6 +1414,10 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 					cout << "You smash the light bulb with the rock. The room is plunged into darkness.";
 					check_triggers_commands("scream");
 					itWord = objects[wIndex].getName();
+					return;
+				}
+				else if (objects[wIndex].getName() == "head"){
+					actions_kill_self("You stand under the light and sway your arms back and forth until you leap up off of the ground. Your head is implanted in the light socket and your brain promptly explodes.");
 					return;
 				}
 				else {
@@ -1412,6 +1432,14 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 					itWord = objects[wIndex].getName();
 					return;
 				}
+				else if (objects[wIndex].getName() == "head"){
+					if (yesNo()){
+						cout << "You smash your forehead into the wall. You see a smear of blood on the wall.";
+						hurtPlayer(50);
+						check_triggers_commands("scream");
+					}
+					return;
+				}
 				else {
 					cout << "You cannot hit the wall with that!";
 					return;
@@ -1424,8 +1452,62 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 					itWord = objects[wIndex].getName();
 					return;
 				}
+				else if (objects[wIndex].getName() == "head"){
+					actions_kill_self("You lean over and give the ground a solid head butt. Your skull is smashed on the concrete.");
+					return;
+				}
 				else {
 					cout << "You cannot hit the floor with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "head"){
+				if (objects[wIndex].getName() == "rock"){
+					if (yesNo()){
+						cout << "You close your eyes and slam the rock into your face. It hurts.";
+						hurtPlayer(35);
+						check_triggers_commands("scream");
+						return;
+					}
+				}
+				else {
+					cout << "You cannot hit your head with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "arm"){
+				if (objects[wIndex].getName() == "rock"){
+					if (yesNo()){
+						cout << "You jab your elbow with the rock.";
+						hurtPlayer(35);
+						check_triggers_commands("scream");
+						return;
+					}
+				}
+				else if (objects[wIndex].getName() == "head"){
+					cout << "You lean over and try to hit your arm, but it ends up being more of a head scratching motion.";
+					return;
+				}
+				else {
+					cout << "You cannot hit your arm with that!";
+					return;
+				}
+			}
+			else if (objects[i].getName() == "hand"){
+				if (objects[wIndex].getName() == "rock"){
+					if (yesNo()){
+						cout << "You smack your hand with the rock.";
+						hurtPlayer(10);
+						check_triggers_commands("scream");
+						return;
+					}
+				}
+				else if (objects[wIndex].getName() == "arm"){
+					cout << "You make a strange, and unsuccessful maneuver.";
+					return;
+				}
+				else {
+					cout << "You cannot hit your hand with that!";
 					return;
 				}
 			}
@@ -1446,6 +1528,10 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 			else{
 				return;
 			}
+		}
+		else if (objects[wIndex].getName() == "head"){
+			cout << "That simply doesn't make any sense, I am afraid.";
+			return;
 		}
 	}
 	cout << fmsg_hit;

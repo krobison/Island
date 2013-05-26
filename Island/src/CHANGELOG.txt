@@ -23,4 +23,5 @@
 	CHANGED			fixed some odd return statements
 	ADDED			arms
 	ADDED			hands
-	Need now to add so that when you hit with, if weapon is hands, just call hit, and also add stuffs for body parts as weapons and targets
+	ADDED			you can now type "hit (noun) with (arms/hands)" and it functions like "hit (noun)"
+	ADDED			several "hitting" interactions with body parts and different objects
