@@ -1602,8 +1602,9 @@ void Driver::actions_hit_with(std::string target,std::string weapon) {
 						return;
 					}
 				}
-				else if (objects[wIndex].getName() == "arm"){
-					cout << "You make a strange, and unsuccessful maneuver.";
+				else if (objects[wIndex].getName() == "head"){
+					cout << "You smack your hand against your forehead.";
+					hurtPlayer(5);
 					return;
 				}
 				else {
