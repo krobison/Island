@@ -16,7 +16,7 @@
 	CHANGED			say (at) --> say(to)   YAY!
 
 
-	5/25/13
+5/25/2013
 
 	ADDED			head
 	CHANGED			an item must be 'takeable' to drop it
@@ -30,3 +30,7 @@
 	ADDED			floor and wall for 5049
 	ADDED			a pipe obj for 5049
 	ADDED			interactions for pipe
+
+5/26/2013
+
+	CHANGES			misc. bugfixes
